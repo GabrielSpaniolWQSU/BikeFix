@@ -41,7 +41,24 @@ export class BikesService {
         )
   }
 
-    delete(id: string): Ozbservable<void> {
+    create(bike: Omit<Bikes, "id">): Observable<Bikes> {
+        return this.http.post<{ name: string }>(this.apiUrl + this.sufix, bike).pipe(
+            map((response) => {
+                return { id: response.name, ...bike };
+            })
+        );
+    }
+
+    update(id: string, bike: Omit<Bikes, "id">): Observable<Bikes> {
+        return this.http
+        .put<Omit<Bikes, "id">>
+        (this.apiUrl + this.sufix, bike).pipe(
+            map((response) => {
+              return { id, ...bike };
+            }))    
+    }
+
+    delete(id: string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}${this.sufix}`);
     }
 }

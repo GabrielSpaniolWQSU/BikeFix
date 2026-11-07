@@ -1,4 +1,3 @@
-import { Service } from '@angular/core';
-
-@Service()
-export class BikesModel {}
+export interface Bikes {
+  id: string;
+}
