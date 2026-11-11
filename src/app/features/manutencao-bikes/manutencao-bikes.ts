@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import type { Bikes } from '../../core/models/bikes.model';
 import { BikesService } from '../../core/service/bikes.service';
 
 @Component({
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   selector: 'app-manutencao-bikes',
   styleUrl: './manutencao-bikes.css',
   templateUrl: './manutencao-bikes.html',

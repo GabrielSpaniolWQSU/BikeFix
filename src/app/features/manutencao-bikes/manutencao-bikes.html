@@ -1,1 +1,84 @@
-<p>manutencao-conteudo works!</p>
+<div class="form-box">
+  <h2>
+    @if (editingId !== null) {
+      Editar ordem de serviço
+    } @else {
+      Adicionar ordem de serviço
+    }
+  </h2>
+
+  @if (loadingData) {
+    <div class="info-message">Carregando ordem de serviço...</div>
+  }
+  @if (sucessMessage) {
+    <div class="success-message">{{ sucessMessage }}</div>
+  }
+  @if (errorMessage) {
+    <div class="error-message">{{ errorMessage }}</div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="field">
+      <label for="bicicleta">Bicicleta:</label>
+      <input id="bicicleta" type="text" formControlName="bicicleta" />
+      <span class="character-count">{{ form.controls.bicicleta.value.length }} caracteres</span>
+      @if (form.controls.bicicleta.touched && form.controls.bicicleta.invalid) {
+        <small>Informe a bicicleta.</small>
+      }
+    </div>
+
+    <div class="field">
+      <label for="cliente">Cliente:</label>
+      <input id="cliente" type="text" formControlName="cliente" />
+      <span class="character-count">{{ form.controls.cliente.value.length }} caracteres</span>
+      @if (form.controls.cliente.touched && form.controls.cliente.invalid) {
+        <small>Informe o cliente.</small>
+      }
+    </div>
+
+    <div class="field">
+      <label for="problemaRelatado">Problema relatado:</label>
+      <textarea id="problemaRelatado" formControlName="problemaRelatado"></textarea>
+      <span class="character-count">{{ form.controls.problemaRelatado.value.length }} caracteres</span>
+      @if (form.controls.problemaRelatado.touched && form.controls.problemaRelatado.invalid) {
+        <small>Informe o problema relatado.</small>
+      }
+    </div>
+
+    <div class="field">
+      <label for="servicoRealizado">Serviço realizado:</label>
+      <textarea id="servicoRealizado" formControlName="servicoRealizado"></textarea>
+      <span class="character-count">{{ form.controls.servicoRealizado.value.length }} caracteres</span>
+    </div>
+
+    <div class="field">
+      <label for="valor">Valor:</label>
+      <input id="valor" type="number" formControlName="valor" />
+      @if (form.controls.valor.touched && form.controls.valor.invalid) {
+        <small>Informe um valor maior ou igual a zero.</small>
+      }
+    </div>
+
+    <div class="field">
+      <label for="situacao">Situação:</label>
+      <select id="situacao" formControlName="situacao">
+        <option value="Pendente">Pendente</option>
+        <option value="Em andamento">Em andamento</option>
+        <option value="Concluído">Concluído</option>
+      </select>
+      @if (form.controls.situacao.touched && form.controls.situacao.invalid) {
+        <small>Informe a situação do conserto.</small>
+      }
+    </div>
+
+    <button type="submit" [disabled]="loading || loadingData">
+      @if (loading) {
+        Salvando...
+      } @else if (editingId !== null) {
+        Atualizar
+      } @else {
+        Salvar
+      }
+    </button>
+  </form>
+</div>

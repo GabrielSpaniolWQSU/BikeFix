@@ -1,16 +1,19 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ManutencaoConteudo } from './manutencao-conteudo';
+import { ManutencaoBikes } from './manutencao-bikes';
 
-describe('ManutencaoConteudo', () => {
-  let component: ManutencaoConteudo;
-  let fixture: ComponentFixture<ManutencaoConteudo>;
+describe('ManutencaoBikes', () => {
+  let component: ManutencaoBikes;
+  let fixture: ComponentFixture<ManutencaoBikes>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ManutencaoConteudo],
+      imports: [ManutencaoBikes],
+      providers: [provideHttpClient(), provideRouter([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ManutencaoConteudo);
+    fixture = TestBed.createComponent(ManutencaoBikes);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -19,3 +22,4 @@ describe('ManutencaoConteudo', () => {
     expect(component).toBeTruthy();
   });
 });
+

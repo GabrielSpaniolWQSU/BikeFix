@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { BikesService } from '../../core/service/bikes.service';
-import { Router } from 'express';
+import type { Bikes } from '../../core/models/bikes.model';
 
 @Component({
   imports: [RouterLink],
@@ -11,27 +11,29 @@ import { Router } from 'express';
 })
 export class Admin {
   private BikesService = inject(BikesService);
-  private Router = inject(Router);
+  private router = inject(Router);
 
-  bikes: Bikes[] = [];    
-  loading = true;
+  bikes = signal<Bikes[]>([]);
+  loading = signal(true);
   errorMessage = "";
-  sucessMessage = "";~
+  sucessMessage = "";
 
   loadBikes(): void {
-    this.loading = true;
+    this.loading.set(true);
     this.errorMessage = "";
     this.BikesService.getAll().subscribe({
-      next: (response) => {}
-        this.conteudos = response;
-        this.loading = false;
-      error: (error) => {}
+      next: (response) => {
+        this.bikes.set(response);
+        this.loading.set(false);
+      },
+      error: (error) => {
         this.errorMessage = "Erro ao carregar os conteúdos.";
-        this.loading = false;
-      }
-  });
+        this.loading.set(false);
+      },
+    });
+  }
 
-  ngInit(): void {
+  ngOnInit(): void {
     this.loadBikes();
   }
 }
